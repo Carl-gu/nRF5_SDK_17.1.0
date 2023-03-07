@@ -46,6 +46,27 @@
 #ifdef USE_APP_CONFIG
 #include "app_config.h"
 #endif
+
+
+// <h> Application 
+
+//==========================================================
+// <o> NFC_PAIRING_MODE  - Type of NFC pairing
+ 
+// <0=> NFC_PAIRING_MODE_JUST_WORKS 
+// <1=> NFC_PAIRING_MODE_OOB 
+// <2=> NFC_PAIRING_MODE_LESC_JUST_WORKS 
+// <3=> NFC_PAIRING_MODE_LESC_OOB 
+// <4=> NFC_PAIRING_MODE_GENERIC_OOB 
+
+#ifndef NFC_PAIRING_MODE
+#define NFC_PAIRING_MODE 4
+#endif
+
+// </h> 
+//==========================================================
+
+
 // <h> Board Support 
 
 //==========================================================
@@ -204,7 +225,7 @@
 // <e> PEER_MANAGER_ENABLED - peer_manager - Peer Manager
 //==========================================================
 #ifndef PEER_MANAGER_ENABLED
-#define PEER_MANAGER_ENABLED 0
+#define PEER_MANAGER_ENABLED 1
 #endif
 // <o> PM_MAX_REGISTRANTS - Number of event handlers that can be registered. 
 #ifndef PM_MAX_REGISTRANTS
@@ -252,7 +273,7 @@
 // <i> If set to true, you need to call nrf_ble_lesc_request_handler() in the main loop to respond to LESC-related BLE events. If LESC support is not required, set this to false to save code space.
 
 #ifndef PM_LESC_ENABLED
-#define PM_LESC_ENABLED 0
+#define PM_LESC_ENABLED 1
 #endif
 
 // <e> PM_RA_PROTECTION_ENABLED - Enable/disable protection against repeated pairing attempts in Peer Manager.
@@ -292,6 +313,26 @@
 #endif
 
 // </e>
+
+// <h> nrf_ble_lesc - Le Secure Connection
+
+//==========================================================
+// <q> NRF_BLE_LESC_ENABLED  - Enable LESC Module
+ 
+
+#ifndef NRF_BLE_LESC_ENABLED
+#define NRF_BLE_LESC_ENABLED 1
+#endif
+
+// <q> NRF_BLE_LESC_GENERATE_NEW_KEYS  - Generate new LESC keys after every pairing attempt. Keys are generated on the auth status event
+ 
+
+#ifndef NRF_BLE_LESC_GENERATE_NEW_KEYS
+#define NRF_BLE_LESC_GENERATE_NEW_KEYS 0
+#endif
+
+// </h> 
+//==========================================================
 
 // </h> 
 //==========================================================
@@ -1207,7 +1248,7 @@
 // <i> The nRF HW backend provide access to RNG peripheral in nRF5x devices.
 //==========================================================
 #ifndef NRF_CRYPTO_BACKEND_NRF_HW_RNG_ENABLED
-#define NRF_CRYPTO_BACKEND_NRF_HW_RNG_ENABLED 0
+#define NRF_CRYPTO_BACKEND_NRF_HW_RNG_ENABLED 1
 #endif
 // <q> NRF_CRYPTO_BACKEND_NRF_HW_RNG_MBEDTLS_CTR_DRBG_ENABLED  - Enable mbed TLS CTR-DRBG algorithm.
  
@@ -1243,7 +1284,7 @@
 // <i> The Oberon backend
 //==========================================================
 #ifndef NRF_CRYPTO_BACKEND_OBERON_ENABLED
-#define NRF_CRYPTO_BACKEND_OBERON_ENABLED 0
+#define NRF_CRYPTO_BACKEND_OBERON_ENABLED 1
 #endif
 // <q> NRF_CRYPTO_BACKEND_OBERON_CHACHA_POLY_ENABLED  - Enable the CHACHA-POLY mode using Oberon.
  
@@ -1354,6 +1395,30 @@
 #endif
 
 // </e>
+
+// <h> nrf_crypto_rng - RNG Configuration
+
+//==========================================================
+// <q> NRF_CRYPTO_RNG_STATIC_MEMORY_BUFFERS_ENABLED  - Use static memory buffers for context and temporary init buffer.
+ 
+
+// <i> Always recommended when using the nRF HW RNG as the context and temporary buffers are small. Consider disabling if using the CC310 RNG in a RAM constrained application. In this case, memory must be provided to nrf_crypto_rng_init, or it can be allocated internally provided that NRF_CRYPTO_ALLOCATOR does not allocate memory on the stack.
+
+#ifndef NRF_CRYPTO_RNG_STATIC_MEMORY_BUFFERS_ENABLED
+#define NRF_CRYPTO_RNG_STATIC_MEMORY_BUFFERS_ENABLED 1
+#endif
+
+// <q> NRF_CRYPTO_RNG_AUTO_INIT_ENABLED  - Initialize the RNG module automatically when nrf_crypto is initialized.
+ 
+
+// <i> Automatic initialization is only supported with static or internally allocated context and temporary memory.
+
+#ifndef NRF_CRYPTO_RNG_AUTO_INIT_ENABLED
+#define NRF_CRYPTO_RNG_AUTO_INIT_ENABLED 1
+#endif
+
+// </h> 
+//==========================================================
 
 // </h> 
 //==========================================================
@@ -2419,7 +2484,7 @@
 // <e> NRFX_NFCT_ENABLED - nrfx_nfct - NFCT peripheral driver
 //==========================================================
 #ifndef NRFX_NFCT_ENABLED
-#define NRFX_NFCT_ENABLED 0
+#define NRFX_NFCT_ENABLED 1
 #endif
 // <o> NRFX_NFCT_CONFIG_IRQ_PRIORITY  - Interrupt priority
  
@@ -3135,7 +3200,7 @@
 // <e> NRFX_RNG_ENABLED - nrfx_rng - RNG peripheral driver
 //==========================================================
 #ifndef NRFX_RNG_ENABLED
-#define NRFX_RNG_ENABLED 0
+#define NRFX_RNG_ENABLED 1
 #endif
 // <q> NRFX_RNG_CONFIG_ERROR_CORRECTION  - Error correction
  
@@ -3886,7 +3951,7 @@
 // <e> NRFX_TIMER_ENABLED - nrfx_timer - TIMER periperal driver
 //==========================================================
 #ifndef NRFX_TIMER_ENABLED
-#define NRFX_TIMER_ENABLED 0
+#define NRFX_TIMER_ENABLED 1
 #endif
 // <q> NRFX_TIMER0_ENABLED  - Enable TIMER0 instance
  
@@ -3920,7 +3985,7 @@
  
 
 #ifndef NRFX_TIMER4_ENABLED
-#define NRFX_TIMER4_ENABLED 0
+#define NRFX_TIMER4_ENABLED 1
 #endif
 
 // <o> NRFX_TIMER_DEFAULT_CONFIG_FREQUENCY  - Timer frequency if in Timer mode
@@ -5256,7 +5321,7 @@
 // <e> RNG_ENABLED - nrf_drv_rng - RNG peripheral driver - legacy layer
 //==========================================================
 #ifndef RNG_ENABLED
-#define RNG_ENABLED 0
+#define RNG_ENABLED 1
 #endif
 // <q> RNG_CONFIG_ERROR_CORRECTION  - Error correction
  
@@ -5597,7 +5662,7 @@
 // <e> TIMER_ENABLED - nrf_drv_timer - TIMER periperal driver - legacy layer
 //==========================================================
 #ifndef TIMER_ENABLED
-#define TIMER_ENABLED 0
+#define TIMER_ENABLED 1
 #endif
 // <o> TIMER_DEFAULT_CONFIG_FREQUENCY  - Timer frequency if in Timer mode
  
@@ -5685,7 +5750,7 @@
  
 
 #ifndef TIMER4_ENABLED
-#define TIMER4_ENABLED 0
+#define TIMER4_ENABLED 1
 #endif
 
 // </e>
@@ -6623,7 +6688,7 @@
  
 
 #ifndef CRC16_ENABLED
-#define CRC16_ENABLED 0
+#define CRC16_ENABLED 1
 #endif
 
 // <q> CRC32_ENABLED  - crc32 - CRC32 calculation routines
@@ -6643,7 +6708,7 @@
 // <e> FDS_ENABLED - fds - Flash data storage module
 //==========================================================
 #ifndef FDS_ENABLED
-#define FDS_ENABLED 0
+#define FDS_ENABLED 1
 #endif
 // <h> Pages - Virtual page settings
 
@@ -6874,7 +6939,7 @@
 // <e> MEM_MANAGER_ENABLED - mem_manager - Dynamic memory allocator
 //==========================================================
 #ifndef MEM_MANAGER_ENABLED
-#define MEM_MANAGER_ENABLED 0
+#define MEM_MANAGER_ENABLED 1
 #endif
 // <o> MEMORY_MANAGER_SMALL_BLOCK_COUNT - Size of each memory blocks identified as 'small' block.  <0-255> 
 
@@ -7167,7 +7232,7 @@
 // <e> NRF_FSTORAGE_ENABLED - nrf_fstorage - Flash abstraction library
 //==========================================================
 #ifndef NRF_FSTORAGE_ENABLED
-#define NRF_FSTORAGE_ENABLED 0
+#define NRF_FSTORAGE_ENABLED 1
 #endif
 // <h> nrf_fstorage - Common settings
 
@@ -7345,7 +7410,7 @@
 // <e> NRF_QUEUE_ENABLED - nrf_queue - Queue module
 //==========================================================
 #ifndef NRF_QUEUE_ENABLED
-#define NRF_QUEUE_ENABLED 0
+#define NRF_QUEUE_ENABLED 1
 #endif
 // <q> NRF_QUEUE_CLI_CMDS  - Enable CLI commands specific to the module
  
@@ -10626,7 +10691,7 @@
  
 
 #ifndef NFC_AC_REC_ENABLED
-#define NFC_AC_REC_ENABLED 0
+#define NFC_AC_REC_ENABLED 1
 #endif
 
 // <q> NFC_AC_REC_PARSER_ENABLED  - nfc_ac_rec_parser - Alternative Carrier record parser
@@ -10639,7 +10704,7 @@
 // <e> NFC_BLE_OOB_ADVDATA_ENABLED - nfc_ble_oob_advdata - AD data for OOB pairing encoder
 //==========================================================
 #ifndef NFC_BLE_OOB_ADVDATA_ENABLED
-#define NFC_BLE_OOB_ADVDATA_ENABLED 0
+#define NFC_BLE_OOB_ADVDATA_ENABLED 1
 #endif
 // <o> ADVANCED_ADVDATA_SUPPORT  - Non-mandatory AD types for BLE OOB pairing are encoded inside the NDEF message (e.g. service UUIDs)
  
@@ -10662,7 +10727,7 @@
 // <e> NFC_BLE_PAIR_LIB_ENABLED - nfc_ble_pair_lib - Library parameters
 //==========================================================
 #ifndef NFC_BLE_PAIR_LIB_ENABLED
-#define NFC_BLE_PAIR_LIB_ENABLED 0
+#define NFC_BLE_PAIR_LIB_ENABLED 1
 #endif
 // <e> NFC_BLE_PAIR_LIB_LOG_ENABLED - Enables logging in the module.
 //==========================================================
@@ -10798,35 +10863,35 @@
  
 
 #ifndef NFC_BLE_PAIR_MSG_ENABLED
-#define NFC_BLE_PAIR_MSG_ENABLED 0
+#define NFC_BLE_PAIR_MSG_ENABLED 1
 #endif
 
 // <q> NFC_CH_COMMON_ENABLED  - nfc_ble_pair_common - OOB pairing common data
  
 
 #ifndef NFC_CH_COMMON_ENABLED
-#define NFC_CH_COMMON_ENABLED 0
+#define NFC_CH_COMMON_ENABLED 1
 #endif
 
 // <q> NFC_EP_OOB_REC_ENABLED  - nfc_ep_oob_rec - EP record for BLE pairing encoder
  
 
 #ifndef NFC_EP_OOB_REC_ENABLED
-#define NFC_EP_OOB_REC_ENABLED 0
+#define NFC_EP_OOB_REC_ENABLED 1
 #endif
 
 // <q> NFC_HS_REC_ENABLED  - nfc_hs_rec - Handover Select NDEF record encoder
  
 
 #ifndef NFC_HS_REC_ENABLED
-#define NFC_HS_REC_ENABLED 0
+#define NFC_HS_REC_ENABLED 1
 #endif
 
 // <q> NFC_LE_OOB_REC_ENABLED  - nfc_le_oob_rec - LE record for BLE pairing encoder
  
 
 #ifndef NFC_LE_OOB_REC_ENABLED
-#define NFC_LE_OOB_REC_ENABLED 0
+#define NFC_LE_OOB_REC_ENABLED 1
 #endif
 
 // <q> NFC_LE_OOB_REC_PARSER_ENABLED  - nfc_le_oob_rec_parser - LE record parser
@@ -10853,7 +10918,7 @@
 // <e> NFC_NDEF_MSG_ENABLED - nfc_ndef_msg - NFC NDEF Message generator module
 //==========================================================
 #ifndef NFC_NDEF_MSG_ENABLED
-#define NFC_NDEF_MSG_ENABLED 0
+#define NFC_NDEF_MSG_ENABLED 1
 #endif
 // <o> NFC_NDEF_MSG_TAG_TYPE  - NFC Tag Type
  
@@ -10912,7 +10977,7 @@
  
 
 #ifndef NFC_NDEF_RECORD_ENABLED
-#define NFC_NDEF_RECORD_ENABLED 0
+#define NFC_NDEF_RECORD_ENABLED 1
 #endif
 
 // <e> NFC_NDEF_RECORD_PARSER_ENABLED - nfc_ndef_record_parser - NFC NDEF Record parser module
@@ -10981,7 +11046,7 @@
 // <e> NFC_PLATFORM_ENABLED - nfc_platform - NFC platform module for Clock control.
 //==========================================================
 #ifndef NFC_PLATFORM_ENABLED
-#define NFC_PLATFORM_ENABLED 0
+#define NFC_PLATFORM_ENABLED 1
 #endif
 // <e> NFC_PLATFORM_LOG_ENABLED - Enables logging in the module.
 //==========================================================
